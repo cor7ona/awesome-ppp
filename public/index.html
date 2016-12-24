@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>AR你个AR</title>
+	<meta charset="utf-8">
+	<meta name='viewport' content='width=device-width,initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no'>
+	<style type="text/css">
+		.container {
+			height: 500px;text-align: center;vertical-align: middle;
+			border: solid 1px red;
+		}
+		canvas {
+			margin-top: 100px;
+		}
+		.btns {
+			margin-top: 20px;
+			text-align: center;
+		}
+		#file-input {
+			display: none;
+		}
+		.img-container {
+			text-align: center;
+			margin-top: 20px;
+		}
+	</style>
+</head>
+<body>
+	<div class="container" >
+		<canvas id="container" height= '350px' width="350px"></canvas>
+	</div>
+	<div class="btns">
+		<select name="phone-type" id="phone-type">
+			<option value="6">iPhone 6/6s/7</option>
+			<option value="6p">iPhone 6p/6sp/7p</option>
+		</select>
+		<button type="button" id="pick-photo">上传图片</button>
+		<input type="file" id="file-input">
+	</div>
+	<div class="img-container">
+		<img src="./imgs/ppp.png" alt="">
+	</div>
+	<script type="text/javascript">
+		var container = document.getElementById('container');
+		var canvas = container.getContext('2d');
+		var image = new Image();
+
+		document.querySelector('#pick-photo').addEventListener('click', function () {
+            document.querySelector('#file-input').click();
+        });
+
+		document.querySelector('#file-input').addEventListener('change', function (e) {
+            var file = e.currentTarget.files;
+            if (file && file[0]) {
+                var reader = new FileReader();
+                reader.onload = reDrawImage;
+                reader.readAsDataURL(file[0]);
+            }
+        });
+
+		function reDrawImage(event) {
+            image.src = event.target.result;
+            image.onload = function () {
+                var config = getPhoneParams();
+                canvas.drawImage(image, config.coordinate.x, config.coordinate.y, config.totalSize, config.totalSize, 0, 0, config.totalSize, config.totalSize);
+                var image2 = new Image();
+                image2.src = container.toDataURL('image/png', 1.0);
+                for (var i = 0; i < 27; i++) {
+                    var copyStart = config.copyDefault + config.appendSize * i,
+                        pasteStart = config.pasteDefault + config.appendSize * i;
+                    canvas.drawImage(image2, 0, copyStart, config.totalSize, config.copySize, 0, pasteStart, config.totalSize, config.copySize);
+                }
+            }
+		}
+
+		function getPhoneParams() {
+			var phoneType = document.getElementById('phone-type').value;
+			switch (phoneType) {
+				case '6p':
+				    return {
+                        coordinate: {x: 212, y: 675},
+                        totalSize: 296,
+                        copyDefault: 13,
+                        pasteDefault: 8.4,
+                        copySize: 6,
+						appendSize: 10.5
+                    };
+				case '6':
+                    return {
+                        coordinate: {x: 205, y: 638},
+                        totalSize: 340,
+                        copyDefault: 15,
+                        pasteDefault: 9.2,
+                        copySize: 6,
+                        appendSize: 12.1
+                    };
+				default:
+                    return {
+                        coordinate: {x: 205, y: 638},
+                        totalSize: 340,
+                        copyDefault: 15,
+                        pasteDefault: 9.2,
+                        copySize: 6,
+                        appendSize: 12.1
+                    };
+			}
+        }
+	</script>
+</body>
+</html>

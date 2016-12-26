@@ -1,7 +1,7 @@
 
 
 'use strict';
-const PORT = process.env.NODE_ENV === 'prod' ? 808: 3000;
+const PORT = 808;
 const express = require('express');
 const path = require('path');
 const favicon = require('static-favicon');

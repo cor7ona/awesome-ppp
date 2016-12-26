@@ -27,7 +27,7 @@
 </head>
 <body>
 	<div class="container" >
-		<canvas id="container" height= '350px' width="350px"></canvas>
+		<canvas id="container" height='350px' width="350px"></canvas>
 	</div>
 	<div class="btns">
 		<select name="phone-type" id="phone-type">
@@ -65,7 +65,7 @@
                 canvas.drawImage(image, config.coordinate.x, config.coordinate.y, config.totalSize, config.totalSize, 0, 0, config.totalSize, config.totalSize);
                 var image2 = new Image();
                 image2.src = container.toDataURL('image/png', 1.0);
-                for (var i = 0; i < 27; i++) {
+                for (var i = 0; i < 28; i++) {
                     var copyStart = config.copyDefault + config.appendSize * i,
                         pasteStart = config.pasteDefault + config.appendSize * i;
                     canvas.drawImage(image2, 0, copyStart, config.totalSize, config.copySize, 0, pasteStart, config.totalSize, config.copySize);
@@ -80,19 +80,19 @@
 				    return {
                         coordinate: {x: 212, y: 675},
                         totalSize: 296,
-                        copyDefault: 13,
-                        pasteDefault: 8.4,
+                        copyDefault: 12.55,
+                        pasteDefault: 8.15,
                         copySize: 6,
 						appendSize: 10.5
                     };
 				case '6':
                     return {
-                        coordinate: {x: 205, y: 638},
-                        totalSize: 340,
+                        coordinate: {x: 196, y: 612},
+                        totalSize: 327,
                         copyDefault: 15,
                         pasteDefault: 9.2,
                         copySize: 6,
-                        appendSize: 12.1
+                        appendSize: 11.2
                     };
 				default:
                     return {
